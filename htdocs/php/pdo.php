@@ -1,7 +1,7 @@
 <?php
 
 
-$dsn = 'mysql:dbname=minichat;host=127.0.0.1';
+$dsn = 'mysql:dbname=minichats;host=127.0.0.1';
 $user = 'root';
 $password = '';
 

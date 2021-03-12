@@ -1,26 +1,85 @@
 body{
-    background-color: darkgray;
-    margin: 10%;
-}
-
-
-#messages{
-display: flex;
-flex-flow: row nowrap;
-margin: 10%;
+    background: url("tempete.png")no-repeat;
+    background-size: auto;
+    margin-left: 10%;
+    margin-top: 5%;
+    color: gray;
 
 }
-.message{
-    width:80%;
+#chat{
+
+    display:flex;
+    flex-flow: nowrap row;
+    width: 100%;
+   
+       overflow-y: scroll;
+   
+  
+    
+
+}
+.messages{
+
+    width: 70%;
     height: auto;
+    background-color:transparent;    
+    justify-content: center;
+    
 }
-.users{
-    width: 20%;
-    height: auto;
-}
-.send{
 
+
+.utilisateur{
+width: 20%;
+height: auto;
+text-align: center;
+word-wrap: break-word;
+display: inline-block;
+align-items: center;
+
+
+}
+
+.user{
+    border: 1px solid  darkslategray;;
+}
+
+
+.tab{
     display: flex;
     flex-flow: row nowrap;
- 
+   
+  
+   
+}
+
+
+.tablo{
+    border: 2px solid darkslategray;
+    width: 30%;
+    height: auto;
+    word-wrap: break-word;
+    display: inline-block;
+    max-height: 100%;
+    text-align: center;
+    
+  
+}
+
+
+
+
+.send{
+ display: flex;
+ flex-flow: nowrap row;
+ justify-content: space-around;
+ align-items: center;
+ margin-top: 10%;
+text-align: center;
+
+}
+
+button{
+
+    width: 15%;
+    height: 15%;
 }

@@ -1,64 +1,56 @@
 <?php
+  require_once(__DIR__."/pdo.php");
+
+  include 'RandomColor.php';
+use \Colors\RandomColor;
+$color = RandomColor::one(array('format'=>'hex'));
+
+$user=$_POST["users"];
 
 
-$dsn = 'mysql:dbname=minichat;host=127.0.0.1';
-$user = 'root';
-$password = '';
+setcookie("useres",$user,time()+3600,"/");
 
-try {
-    $pdo = new PDO($dsn, $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo 'Échec lors de la connexion : ' . $e->getMessage();
+
+
+if (empty($_POST["users"])){
+    die("parametres manquants");
+    
+}  
+
+
+
+$user=$_POST["users"];
+
+$insertStatement= $pdo-> prepare('SELECT* FROM utilisateurs WHERE users=? ');
+$insertStatement->execute([$user]);
+$verifpseudo=$insertStatement->fetch(PDO::FETCH_ASSOC);
+
+ if($verifpseudo){
+die("Pseudo existant"); 
+
+
 }
 
+    else{
 
-$insertUsersStatement = $pdo->prepare("
-INSERT INTO users
-(user)
+
+        $insertUsersStatement = $pdo->prepare("
+INSERT INTO utilisateurs
+(users, password, ip, color)
 VALUES
-(?)
-
-");
+(?,?,?,?)"
+);
 
 
 $insertUsersStatement-> execute([
 
-    $_POST["user"],
+  $_POST["users"],
+  $_POST["password"],
+  $_SERVER['REMOTE_ADDR'],
+  $color
 
 ]);
 
-$idpatients=$pdo->LastinsertId();
+    }
 
-
-
-$insertMessagesStatement = $pdo->prepare("
-    INSERT INTO messages
-    (message,
-    dateHour
-    
-    )
-     VALUES
-    (?,?)
-
-    ");
- 
-            
-    $datetime=date('Y-m-d H:i:s') ;
-         
-           $insertMessagesStatement-> execute([
-             $_POST("messages"), 
-             $datetime
-            ]);
-   
-
-
-
-
-
-
-
-
- header('Location: index.php?votre message a bien été edité.');
-
-?>
+header('Location: /php/acceuil.php');
